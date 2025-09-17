@@ -16,3 +16,10 @@ export const findUserByEmail = async (email) => {
     throw new Error("Error finding user by email: " + err.message);
   }
 };
+export const updateUserByEmail = async (email, updateData) => {
+  return await User.findOneAndUpdate(
+    { email },
+    { $set: updateData },
+    { new: true } // return updated doc
+  );
+};
