@@ -1,5 +1,6 @@
 import express from 'express';
 import connectDB from './config/db.config.js';
+import redisClient from './config/redis.config.js'
 import authRouter from './routes/auth.routes.js';
 import { uploadRouter } from './routes/upload.routes.js';
 import postRouter from './routes/post.routes.js';
@@ -17,6 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 
 
 connectDB();
+await redisClient.connect();
 app.use('/auth', authRouter);
 app.use('/upload', uploadRouter);
 app.use('/posts', postRouter);
