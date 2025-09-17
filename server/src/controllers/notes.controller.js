@@ -1,0 +1,11 @@
+export const createNote = (req, res) => res.send("Note created");
+export const getAllNotes = (req, res) => res.send("All notes");
+export const getNoteById = (req, res) => res.send(`Note ${req.params.id}`);
+export const updateNoteById = (req, res) => res.send(`Note ${req.params.id} updated`);
+export const deleteNoteById = (req, res) => res.send(`Note ${req.params.id} deleted`);
+export const getNotesByUserId = (req, res) => res.send(`Notes by user ${req.params.userId}`);
+export const getNotesByCategory = (req, res) => res.send(`Notes in category ${req.params.category}`);
+export const searchNotes = (req, res) => res.send("Search results for notes");
+export const getRecentNotes = (req, res) => res.send("Recent notes");
+export const getPopularNotes = (req, res) => res.send("Popular notes");
+export const getNotesByPagination = (req, res) => res.send("Paginated notes");
