@@ -1,4 +1,5 @@
 import express from 'express';
+import connectDB from './config/db.config.js';
 import authRouter from './routes/auth.routes.js';
 import { uploadRouter } from './routes/upload.routes.js';
 import postRouter from './routes/post.routes.js';
@@ -14,6 +15,8 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+
+connectDB();
 app.use('/auth', authRouter);
 app.use('/upload', uploadRouter);
 app.use('/posts', postRouter);
