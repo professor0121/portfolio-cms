@@ -10,7 +10,8 @@ import aboutRouter from './routes/about.routes.js';
 import adsRouter from './routes/ads.routes.js';
 import projectRouter from './routes/project.routes.js';
 import notesRouter from './routes/notes.routes.js';
-import courseRouter from './routes/course.routes.js'
+import courseRouter from './routes/course.routes.js';
+import tagRouter from './routes/tag.routes.js'
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use('/auth', authRouter);
 app.use('/upload', uploadRouter);
 app.use('/posts', postRouter);
 app.use('/categories', categoryRouter);
+app.use('/tags',tagRouter)
 app.use('/about',aboutRouter);
 app.use('/ads',adsRouter);
 app.use('/projects',projectRouter);
