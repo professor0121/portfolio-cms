@@ -1,9 +1,8 @@
 import { Router } from 'express';
 import * as categoryController from '../controllers/category.controller.js';
-import router from './auth.routes.js';
 
 const { createCategory, getAllCategories, getCategoryById, updateCategoryById, deleteCategoryById } = categoryController;
-const categoryRouter = Router();
+const router = Router();
 
 router.post('/create', createCategory);
 router.get('/', getAllCategories);
@@ -12,4 +11,4 @@ router.patch('/:id', updateCategoryById);
 router.delete('/:id', deleteCategoryById);
 ;
 
-export default categoryRouter;
+export default router;
