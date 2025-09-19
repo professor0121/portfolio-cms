@@ -1,8 +1,8 @@
-import {Router} from 'express';
+import { Router } from 'express';
 import * as categoryController from '../controllers/category.controller.js';
 import router from './auth.routes.js';
 
-const { createCategory, getAllCategories, getCategoryById, updateCategoryById, deleteCategoryById} = categoryController;
+const { createCategory, getAllCategories, getCategoryById, updateCategoryById, deleteCategoryById } = categoryController;
 const categoryRouter = Router();
 
 router.post('/create', createCategory);
