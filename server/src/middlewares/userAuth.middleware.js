@@ -1,5 +1,7 @@
 import { verifyToken } from "../utils/jsonwebtoken.utils.js";
 import client from "../config/redis.config.js";
+import { findUserByEmail } from "../dao/user.dao.js";
+
 
 export const userAuthMiddleware = async (req, res, next) => {
   try {
@@ -19,6 +21,7 @@ export const userAuthMiddleware = async (req, res, next) => {
     // Verify JWT
     const decoded = verifyToken(token);
     req.user = decoded;
+    console.log("the requestd user",req.user)
 
     next();
   } catch (error) {

@@ -5,10 +5,23 @@ import {
   updateTagService,
   deleteTagService,
 } from "../services/tag.service.js";
+import slugify from "slugify";
+
 
 export const createTag = async (req, res, next) => {
   try {
-    const tag = await createTagService(req.body);
+    const { name } = req.body;
+    console.log(req)
+    const slug = slugify(name, { lower: true });
+
+    const data = {
+      name,
+      slug,
+      createdBy: req.user.email,
+    };
+
+    const tag = await createTagService(data);
+
     res.status(201).json({ success: true, data: tag });
   } catch (error) {
     next(error);

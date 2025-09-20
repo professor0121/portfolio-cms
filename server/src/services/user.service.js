@@ -54,7 +54,7 @@ export const getUserService = async (email) => {
   if (!user) {
     throw new Error("User not found");
   }
-  return user;
+  return user;  
 };
 
 export const updateUserService = async (email, updateData) => {
