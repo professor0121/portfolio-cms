@@ -1,0 +1,85 @@
+import React, { useState } from "react";
+import {
+  HomeIcon,
+  BarChartIcon,
+  FileTextIcon,
+  LayersIcon,
+  BookmarkIcon,
+  ImageIcon,
+  GearIcon,
+  ChevronRightIcon,
+  ChevronLeftIcon,
+} from "@radix-ui/react-icons";
+import { Link } from "react-router-dom";
+
+const menuItems = [
+  { name: "Dashboard", icon: <HomeIcon />, path: "/admin/dashboard" },
+  { name: "Analysis", icon: <BarChartIcon />, path: "/admin/analysis" },
+  { name: "Post", icon: <FileTextIcon />, path: "/admin/post" },
+  { name: "Categories", icon: <LayersIcon />, path: "/admin/categories" },
+  { name: "Tags", icon: <BookmarkIcon />, path: "/admin/tags" },
+  { name: "Media", icon: <ImageIcon />, path: "/admin/media" },
+  { name: "Settings", icon: <GearIcon />, path: "/admin/settings" },
+];
+
+const Sidebar = () => {
+  const [collapsed, setCollapsed] = useState(false);
+
+  return (
+    <div
+      className={`bg-gray-800 text-white h-screen flex flex-col justify-between transition-all duration-300 ${
+        collapsed ? "w-16" : "w-64"
+      }`}
+    >
+      {/* Top: Menu */}
+      <div>
+        {/* Collapse Button */}
+        <div className="flex justify-end p-2">
+          <button
+            onClick={() => setCollapsed(!collapsed)}
+            className="p-2 rounded hover:bg-gray-700"
+          >
+            {collapsed ? (
+              <ChevronRightIcon className="h-5 w-5" />
+            ) : (
+              <ChevronLeftIcon className="h-5 w-5" />
+            )}
+          </button>
+        </div>
+
+        {/* Menu Items */}
+        <nav className="mt-5 flex flex-col space-y-2">
+          {menuItems.map((item) => (
+            <Link
+              key={item.name}
+              to={item.path}
+              className="flex items-center gap-3 p-2 hover:bg-gray-700 rounded-md transition-colors"
+            >
+              <span className="w-6 h-6 flex items-center justify-center">
+                {item.icon}
+              </span>
+              {!collapsed && <span>{item.name}</span>}
+            </Link>
+          ))}
+        </nav>
+      </div>
+
+      {/* Bottom: User Profile */}
+      <div className="p-4 border-t border-gray-700 flex items-center gap-3">
+        <img
+          src="https://placeholder.co/40X40"
+          alt="User Avatar"
+          className="w-10 h-10 rounded-full object-cover"
+        />
+        {!collapsed && (
+          <div>
+            <p className="text-sm font-medium">John Doe</p>
+            <p className="text-xs text-gray-400">johndoe@email.com</p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default Sidebar;
