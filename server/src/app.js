@@ -11,13 +11,21 @@ import adsRouter from './routes/ads.routes.js';
 import projectRouter from './routes/project.routes.js';
 import notesRouter from './routes/notes.routes.js';
 import courseRouter from './routes/course.routes.js';
-import tagRouter from './routes/tag.routes.js'
+import tagRouter from './routes/tag.routes.js';
+import cors from 'cors';
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser())
+
+app.use(
+  cors({
+    origin: "http://localhost:5173", 
+    credentials: true,
+  })
+);
 
 connectDB();
 await redisClient.connect();
@@ -32,5 +40,17 @@ app.use('/projects',projectRouter);
 app.use('/notes',notesRouter);
 app.use('/course',courseRouter);
 
+
+// Health check route
+app.get("/health", (req, res) => {
+  const uptime = process.uptime(); // server uptime in seconds
+  const timestamp = new Date();
+
+  res.status(200).json({
+    status: "ok",
+    uptime,
+    timestamp,
+  });
+});
 
 export default app;

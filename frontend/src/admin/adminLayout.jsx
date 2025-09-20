@@ -6,7 +6,7 @@ const adminLayout = () => {
     return (
         <div className='w-full min-h-screen flex'>
             <Sidebar/>
-            <div className='flex-1'>
+            <div  className='flex-1 bg-[#212121] text-[#fff]'>
                 <Outlet />
             </div>
         </div>

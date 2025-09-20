@@ -67,7 +67,7 @@ const Sidebar = () => {
       {/* Bottom: User Profile */}
       <div className="p-4 border-t border-gray-700 flex items-center gap-3">
         <img
-          src="https://placeholder.co/40X40"
+          src="https://placeholder.co/40"
           alt="User Avatar"
           className="w-10 h-10 rounded-full object-cover"
         />
