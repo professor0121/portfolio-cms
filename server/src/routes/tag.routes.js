@@ -6,19 +6,18 @@ import {
   updateTag,
   deleteTag,
 } from "../controllers/tag.controller.js";
+import { userAuthMiddleware } from "../middlewares/userAuth.middleware.js";
+
 
 const tagRouter = Router();
 
-// Define routes in a structured way
-tagRouter
-  .route("/")
-  .get(getAllTags)   // GET all tags
-  .post(createTag);  // CREATE new tag
+// Public routes
+tagRouter.get("/", getAllTags);
+tagRouter.get("/:id", getTag);
 
-tagRouter
-  .route("/:id")
-  .get(getTag)       // GET tag by ID
-  .patch(updateTag)  // UPDATE tag
-  .delete(deleteTag);// DELETE tag
+// Protected routes (Admins only)
+tagRouter.post("/", userAuthMiddleware, createTag);
+tagRouter.patch("/:id", userAuthMiddleware, updateTag);
+tagRouter.delete("/:id", userAuthMiddleware, deleteTag);
 
 export default tagRouter;

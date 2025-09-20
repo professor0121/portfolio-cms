@@ -42,7 +42,8 @@ export const loginUserService = async ({ email, password }) => {
   // generate JWT
   const token = await generateToken({
     id: user._id,
-    email: user.email
+    email: user.email,
+     role: user.role, // include role
   });
   const refreshToken = generateRefreshToken({ userId: user._id });
   await client.set(`refresh_${user._id}`, refreshToken, { EX: 60 * 60 * 24 * 7 });

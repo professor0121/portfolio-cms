@@ -11,13 +11,13 @@ import slugify from "slugify";
 export const createTag = async (req, res, next) => {
   try {
     const { name } = req.body;
-    console.log(req)
+    console.log(req.user)
     const slug = slugify(name, { lower: true });
 
     const data = {
       name,
       slug,
-      createdBy: req.user.email,
+      createdBy: req.user._id,
     };
 
     const tag = await createTagService(data);
