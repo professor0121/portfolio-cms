@@ -6,7 +6,7 @@ export const userAuthMiddleware = async (req, res, next) => {
   try {
     const token =
       req.cookies?.auth_token || req.headers["authorization"]?.split(" ")[1];
-    console.log("Token received:", token);
+    // console.log("Token received:", token);
 
     if (!token) {
       return res.status(401).json({ error: "Unauthorized: No token" });
@@ -22,9 +22,9 @@ export const userAuthMiddleware = async (req, res, next) => {
     let decoded;
     try {
       decoded = verifyToken(token);
-      console.log("Decoded token:", decoded);
+      // console.log("Decoded token:", decoded);
     } catch (err) {
-      console.log("JWT verification failed:", err.message);
+      // console.log("JWT verification failed:", err.message);
       return res.status(401).json({ error: "Unauthorized: Invalid token" });
     }
 
@@ -35,7 +35,7 @@ export const userAuthMiddleware = async (req, res, next) => {
     }
 
     req.user = user;
-    console.log("Authenticated user:", req.user);
+    // console.log("Authenticated user:", req.user);
 
     next();
   } catch (error) {

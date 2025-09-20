@@ -48,13 +48,16 @@ export const getAllTags = async (req, res, next) => {
 
 export const updateTag = async (req, res, next) => {
   try {
-    const tag = await updateTagService(req.params.id, req.body);
-    res.json({ success: true, data: tag });
+    const { id } = req.params;
+    const data = req.body;
+
+    const updatedTag = await updateTagService(id, data);
+    res.status(200).json({ success: true, data: updatedTag });
   } catch (error) {
-    next(error);
+    // Send proper error message
+    res.status(400).json({ success: false, error: error.message });
   }
 };
-
 export const deleteTag = async (req, res, next) => {
   try {
     await deleteTagService(req.params.id);

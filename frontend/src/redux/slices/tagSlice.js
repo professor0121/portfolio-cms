@@ -31,7 +31,7 @@ export const updateTag = createAsyncThunk(
   "tags/updateTag",
   async ({ id, tagData }, { rejectWithValue }) => {
     try {
-      const response = await axiosInstance.put(`/tags/${id}`, tagData);
+      const response = await axiosInstance.patch(`/tags/${id}`, tagData);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data || "Error updating tag");
