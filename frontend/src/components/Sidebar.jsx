@@ -8,9 +8,12 @@ import {
   ImageIcon,
   GearIcon,
   ChevronRightIcon,
+  ExitIcon,
   ChevronLeftIcon,
 } from "@radix-ui/react-icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../redux/slices/userSlice";
 
 const menuItems = [
   { name: "Dashboard", icon: <HomeIcon />, path: "/admin/dashboard" },
@@ -24,6 +27,14 @@ const menuItems = [
 
 const Sidebar = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.user);
+
+  const handleLogout = () => {
+    dispatch(logout()); // ✅ Clears Redux state & localStorage
+    navigate("/login");
+  };
 
   return (
     <div
@@ -61,6 +72,17 @@ const Sidebar = () => {
               {!collapsed && <span>{item.name}</span>}
             </Link>
           ))}
+
+          {/* Logout */}
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-3 p-2 hover:bg-gray-700 rounded-md transition-colors w-full text-left"
+          >
+            <span className="w-6 h-6 flex items-center justify-center">
+              <ExitIcon />
+            </span>
+            {!collapsed && <span>Logout</span>}
+          </button>
         </nav>
       </div>
 
@@ -71,10 +93,10 @@ const Sidebar = () => {
           alt="User Avatar"
           className="w-10 h-10 rounded-full object-cover"
         />
-        {!collapsed && (
+        {!collapsed && user && (
           <div>
-            <p className="text-sm font-medium">John Doe</p>
-            <p className="text-xs text-gray-400">johndoe@email.com</p>
+            <p className="text-sm font-medium">{user.name}</p>
+            <p className="text-xs text-gray-400">{user.email}</p>
           </div>
         )}
       </div>
