@@ -10,8 +10,9 @@ export const loginUser = async (req, res) => {
     res.cookie("auth_reffress_token", refreshToken, cookieConfig)
     res.status(200).json({
       message: "Login successful",
-      token,
       user: {
+        token:token,
+        refreshToken:refreshToken,
         id: user._id,
         name: user.name,
         email: user.email,
@@ -60,6 +61,7 @@ export const logoutUser = async (req, res) => {
     await client.setEx(`blacklist:${token}`, expiry, "blocked");
 
     // Clear cookie
+    console.log("logout route is hited")
     res.clearCookie("auth_token", {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
