@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import {
   HomeIcon,
   BarChartIcon,
@@ -13,7 +13,7 @@ import {
 } from "@radix-ui/react-icons";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../redux/slices/userSlice";
+import { logoutUser } from "../redux/slices/userSlice";
 
 const menuItems = [
   { name: "Dashboard", icon: <HomeIcon />, path: "/admin/dashboard" },
@@ -31,9 +31,15 @@ const Sidebar = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
 
+  useEffect(() => {
+    const token = localStorage.getItem("adminToken");
+    if (!token) {
+      navigate("/login");
+    }
+  }, [user, navigate]);
+
   const handleLogout = () => {
-    dispatch(logout()); // ✅ Clears Redux state & localStorage
-    navigate("/login");
+    dispatch(logoutUser()); 
   };
 
   return (
