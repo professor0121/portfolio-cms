@@ -9,6 +9,6 @@ router.get('/', getAllCategories);
 router.get('/:id', getCategoryById);
 router.patch('/:id', updateCategoryById);
 router.delete('/:id', deleteCategoryById);
-;
+
 
 export default router;
