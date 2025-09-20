@@ -45,11 +45,9 @@ const Tags = () => {
   console.log(tags);
   return (
     <div className="p-4">
-      <h2 className="text-2xl font-bold mb-4">Tags Management</h2>
-
       <Table>
         <TableHeader>
-          <TableRow>
+          <TableRow className="text-white">
             <TableHead>ID</TableHead>
             <TableHead>Name</TableHead>
             <TableHead>Slug</TableHead>
