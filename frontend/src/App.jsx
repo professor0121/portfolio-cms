@@ -1,4 +1,5 @@
 import React from "react";
+import { Toaster } from './components/ui/toaster'; // adjust path
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/home";
 import About from "./pages/about";
@@ -41,6 +42,8 @@ const App = () => {
         {/* Login Route */}
         <Route path="/login" element={<Login />} />
       </Routes>
+
+      <Toaster />
     </Router>
   );
 };

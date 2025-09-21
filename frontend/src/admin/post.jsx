@@ -1,8 +1,11 @@
 import React from 'react'
+import CreatePost from '../components/CreatePost'
 
 const post = () => {
   return (
-    <div>post</div>
+    <div>
+      <CreatePost/>
+    </div>
   )
 }
 

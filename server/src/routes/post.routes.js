@@ -1,10 +1,11 @@
 import { Router } from "express";
 import * as postController from "../controllers/post.controller.js";
+import { userAuthMiddleware } from "../middlewares/userAuth.middleware.js";
 
 const router = Router();
 const { createPost, getAllPosts, getPostById, updatePostById, deletePostById, getPostsByUserId, getPostsByCategory, searchPosts, getRecentPosts, getPopularPosts, getPostsByPagination } = postController;
 
-router.post("/create", createPost);
+router.post("/create",userAuthMiddleware, createPost);
 router.get("/", getAllPosts);
 router.get("/:id", getPostById);
 router.patch("/:id", updatePostById);
