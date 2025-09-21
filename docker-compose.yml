@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - server
+    restart: unless-stopped
+  server:
+    build: ./server
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+    # Add volumes or env as needed
