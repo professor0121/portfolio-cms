@@ -14,17 +14,22 @@ import Categories from "./admin/categories";
 import Tags from "./admin/tags";
 import Media from "./admin/media";
 import Login from "./admin/login";
-import ProtectedRoute from "./components/ProtectedRoute"; // ✅ import
+import ProtectedRoute from "./components/ProtectedRoute"; 
+import { Layout } from "./pages/Layout"; 
+import Posts from "./pages/posts";
 
 const App = () => {
   return (
     <Router>
       <Routes>
         {/* Public Routes */}
-        <Route path="/" element={<Home />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/posts" element={<Posts />} />
+        </Route>
 
         {/* ✅ Protected Admin Routes */}
         <Route element={<ProtectedRoute allowedRole="admin" />}>
