@@ -1,8 +1,13 @@
 import React from 'react'
+import ShowCategories from '../components/ShowCategories'
+import CreateCategory from '../components/CreateCategory'
 
 const categories = () => {
   return (
-    <div>categories</div>
+    <div>
+      <CreateCategory />
+      <ShowCategories />
+    </div>
   )
 }
 
