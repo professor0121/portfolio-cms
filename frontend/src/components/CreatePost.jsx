@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
 import { Textarea } from "../components/ui/textarea";
@@ -9,11 +9,24 @@ import { useToast } from '../hooks/use-toast';
 import { useDispatch, useSelector } from "react-redux";
 import { createPost } from "../redux/slices/postSlice";
 import { Card } from "../components/ui/card";
+import { fetchCategories } from "../redux/slices/categoriesSlice";
+import { fetchTags } from "../redux/slices/tagSlice";
 
 const CreatePost = ({ categories = [], tags = [] }) => {
     const dispatch = useDispatch();
     const { toast } = useToast();
-    const { loading, error } = useSelector((state) => state.post); 
+    const { loading, error } = useSelector((state) => state.post);
+        const { categories: categoryState } = useSelector((state) => state.categories); 
+        const { tags: tagState } = useSelector((state) => state.tags);
+
+    // Use categories and tags from Redux state if not provided as props
+    categories = categories.length ? categories : categoryState;
+    tags = tags.length ? tags : tagState;
+
+    useEffect(() => {
+        dispatch(fetchCategories());
+        dispatch(fetchTags());
+    }, [dispatch]);
 
     const [formData, setFormData] = useState({
         title: "",
@@ -50,13 +63,25 @@ const CreatePost = ({ categories = [], tags = [] }) => {
         const resultAction = await dispatch(createPost(postData));
 
         if (createPost.fulfilled.match(resultAction)) {
-            toast({ title: "Success", description: "Post created successfully" });
+            toast({
+                title: "Success",
+                description: "Post created successfully",
+            });
             setFormData({ title: "", content: "", category: "", tags: [], publishStatus: "draft", featuredImage: "" });
         } else {
-            toast({ title: "Error", description: resultAction.payload || "Failed to create post", variant: "destructive" });
-        }
-    };
+            const errorMsg =
+                typeof resultAction.payload === "string"
+                    ? resultAction.payload
+                    : resultAction.payload?.message || "Failed to create post";
 
+            toast({
+                title: "Error",
+                description: errorMsg,
+                variant: "destructive",
+            });
+        }
+
+    };
     return (
         <Card className="bg-gray-800 text-white p-6 mx-10 my-10">
             <form onSubmit={handleSubmit} className="space-y-4">
