@@ -1,4 +1,14 @@
-export const createPost = (req, res) => {
+import { createPostService } from "../services/post.service.js";
+export const createPost =async (req, res) => {
+    const { title, content, category, tags, publishStatus, featuredImage } = req.body;
+    const userId = req.user.id; // Assuming user ID is available in req.user
+    if (!userId) {
+        return res.status(401).json({ success: false, message: "Unauthorized" });
+    }
+    if (!title || !content || !category || !publishStatus) {
+        return res.status(400).json({ success: false, message: "Title, content, and category are required" });
+    }
+    const {postdata}=await createPostService({ title, content, category, tags, publishStatus, featuredImage, createdBy: userId });
     // Logic for creating a post
     res.send('Post created');
 }
@@ -9,12 +19,13 @@ export const getAllPosts = (req, res) => {
 export const getPostById = (req, res) => {
     // Logic for getting a post by ID
     res.send(`Post with ID: ${req.params.id}`);
+
 }
 export const updatePostById = (req, res) => {
     // Logic for updating a post by ID
     res.send(`Post with ID: ${req.params.id} updated`);
 }
-export const deletePostById = (req, res) => {
+export const deletePostById = (req, res) => {   
     // Logic for deleting a post by ID
     res.send(`Post with ID: ${req.params.id} deleted`);
 }
