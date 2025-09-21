@@ -29,7 +29,7 @@ const CreateCategory = () => {
     e.preventDefault();
     console.log("Category Data:", formData);
     dispatch(createCategory(formData));
-    setFormData({ name: "", description: "", parent: "" }); // reset form
+    setFormData({ name: "", description: "", parent: "" }); 
   };
 
   if (loading) return <p className="p-4">Creating category...</p>;

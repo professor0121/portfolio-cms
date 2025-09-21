@@ -3,6 +3,7 @@ import userReducer from "./slices/userSlice";
 import healthReducer from "./slices/healthSlice";
 import tagReducer from "./slices/tagSlice";
 import categoriesReducer from "./slices/categoriesSlice";
+import mediaReducer from "./slices/mediaSlice";
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     health: healthReducer,
     tags: tagReducer,
     categories: categoriesReducer,
+    media: mediaReducer,
   },
 });
 

@@ -3,7 +3,7 @@ import cookieParser from 'cookie-parser';
 import connectDB from './config/db.config.js';
 import redisClient from './config/redis.config.js'
 import authRouter from './routes/auth.routes.js';
-import { uploadRouter } from './routes/upload.routes.js';
+import mediaRouter from './routes/upload.routes.js';
 import postRouter from './routes/post.routes.js';
 import categoryRouter from './routes/category.routes.js';
 import aboutRouter from './routes/about.routes.js';
@@ -30,7 +30,7 @@ app.use(
 connectDB();
 await redisClient.connect();
 app.use('/auth', authRouter);
-app.use('/upload', uploadRouter);
+app.use('/media', mediaRouter);
 app.use('/posts', postRouter);
 app.use('/categories', categoryRouter);
 app.use('/tags',tagRouter)
