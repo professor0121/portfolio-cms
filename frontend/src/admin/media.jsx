@@ -1,9 +1,19 @@
 import React from 'react'
+import UploadMedia from '../components/UploadMedia'
+import ShowMedia from '../components/ShowMedia'
 
-const media = () => {
+const MediaPage = () => {
   return (
-    <div>media</div>
+    <div className="min-h-screen flex flex-col p-6 overflow-y-auto">
+      {/* Upload Section */}
+      <UploadMedia />
+
+      {/* Media Display Section */}
+      <div className="mt-8 flex-1 overflow-y-auto">
+        <ShowMedia />
+      </div>
+    </div>
   )
 }
 
-export default media
+export default MediaPage
