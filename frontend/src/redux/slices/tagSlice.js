@@ -7,7 +7,6 @@ export const fetchTags = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.get("/tags");
-      console.log(response.data)
       return response.data.data; // expecting array of tags
     } catch (error) {
       return rejectWithValue(error.response?.data || "Error fetching tags");
