@@ -15,6 +15,7 @@ const headerData = {
     { name: "Posts", link: "/posts" },
     { name: "Categories", link: "/categories" },
     { name: "Tags", link: "/tags" },
+    { name: "Projects", link: "/projects" },
   ],
   userMenu: ["Profile", "Settings", "Logout"],
 };

@@ -20,7 +20,7 @@ const projectSchema = new mongoose.Schema(
     category: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Category",
-      required: true,
+      // optional
     },
     tags: [
       {
@@ -29,13 +29,13 @@ const projectSchema = new mongoose.Schema(
       },
     ],
     featuredImage: {
-      url: { type: String },
-      alt: { type: String },
+      url: { type: String, required: true }, // URL is required
+      alt: { type: String, default: "" },
     },
     gallery: [
       {
-        url: { type: String },
-        alt: { type: String },
+        url: { type: String, required: true }, // each gallery item must have URL
+        alt: { type: String, default: "" },
       },
     ],
     published: {
@@ -63,6 +63,10 @@ const projectSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
+    views: {
+      type: Number,
+      default: 0
+    }
   },
   { timestamps: true }
 );

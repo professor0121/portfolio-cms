@@ -5,6 +5,7 @@ import tagReducer from "./slices/tagSlice";
 import categoriesReducer from "./slices/categoriesSlice";
 import mediaReducer from "./slices/mediaSlice";
 import postReducer from "./slices/postSlice";
+import projectReducer from "./slices/projectSlice";
 
 const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ const store = configureStore({
     categories: categoriesReducer,
     media: mediaReducer,
     post: postReducer,
+    project: projectReducer,
   },
 });
 

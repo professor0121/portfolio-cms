@@ -18,6 +18,9 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import { Layout } from "./pages/Layout"; 
 import Posts from "./pages/posts";
 import PostDetails from "./pages/postDetails";
+import Projects from "./pages/project";
+import ProjectDetails from "./pages/projectDetails";
+import AdminProjects from "./admin/projects";
 
 const App = () => {
   return (
@@ -31,6 +34,8 @@ const App = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/posts" element={<Posts />} />
           <Route path="/posts/:id" element={<PostDetails />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/projects/:id" element={<ProjectDetails />} />
         </Route>
 
         {/* ✅ Protected Admin Routes */}
@@ -43,6 +48,7 @@ const App = () => {
             <Route path="categories" element={<Categories />} />
             <Route path="tags" element={<Tags />} />
             <Route path="media" element={<Media />} />
+            <Route path="projects" element={<AdminProjects />} />
           </Route>
         </Route>
 

@@ -1,13 +1,13 @@
 import { Router } from "express";
 import * as projectController from "../controllers/project.controller.js";
-
+import { userAuthMiddleware } from "../middlewares/userAuth.middleware.js";
 const router = Router();
 const { createProject, getAllProjects, getProjectById, updateProjectById, deleteProjectById, getProjectsByUserId, getProjectsByCategory, searchProjects, getRecentProjects, getPopularProjects, getProjectsByPagination } = projectController;  
-router.post("/create", createProject);
+router.post("/create",userAuthMiddleware, createProject);
 router.get("/", getAllProjects);
 router.get("/:id", getProjectById);
-router.patch("/:id", updateProjectById);
-router.delete("/:id", deleteProjectById);
+router.patch("/:id",userAuthMiddleware, updateProjectById);
+router.delete("/:id",userAuthMiddleware, deleteProjectById);
 router.get("/user/:userId", getProjectsByUserId);
 router.get("/category/:category", getProjectsByCategory);
 router.get("/search", searchProjects);
