@@ -25,6 +25,7 @@ export const getAllProjects = async (req, res) => {
 
 export const getProjectById = async (req, res) => {
   try {
+    console.log("Fetching project with ID:", req.params.id);
     const project = await projectService.getProjectById(req.params.id);
     if (!project) return res.status(404).json({ message: "Project not found" });
     res.json(project);

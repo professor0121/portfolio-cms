@@ -24,6 +24,7 @@ export const fetchProjectById = createAsyncThunk(
   async (projectId, { rejectWithValue }) => {
     try {
       const res = await axiosInstance.get(`/projects/${projectId}`);
+      console.log("response",res.data);
       return res.data;
     } catch (err) {
       return rejectWithValue(err.response?.data || "Error fetching project");

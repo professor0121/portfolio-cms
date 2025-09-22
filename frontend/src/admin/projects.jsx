@@ -1,12 +1,12 @@
 import React from 'react'
 import CreateProject from '../components/CreateProject'
-import ShowProjects from '../components/ShowProjects'
+import ShowProjectsAdmin from '../components/ShowProjectsAdmin'
 
 const Projects = () => {
   return (
     <div>
         <CreateProject />
-        <ShowProjects/>
+        <ShowProjectsAdmin/>
     </div>
   )
 }

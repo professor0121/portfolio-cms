@@ -8,8 +8,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "../components/ui/table"; // adjust path based on your setup
-import { Button } from "../components/ui/button";
+} from "./ui/table"; // adjust path based on your setup
+import { Button } from "./ui/button";
 
 const ShowProjects = () => {
   const dispatch = useDispatch();
