@@ -19,7 +19,7 @@ const ShowAllPosts = () => {
   useEffect(() => {
     dispatch(fetchAllPosts());
   }, [dispatch]);
-console.log("Posts:", posts);
+  console.log("Posts:", posts);
   if (loading) {
     return <div className="text-center py-6">Loading...</div>;
   }
@@ -58,15 +58,20 @@ console.log("Posts:", posts);
               <TableCell>{post?.author?.email || "Unknown"}</TableCell>
               <TableCell>{post.publishStatus}</TableCell>
               <TableCell>
-                {post.featuredImage ? (
+                {post.featuredImage?.url ? (
                   <img
-                    src={post.featuredImage?.url}
-                    alt={post.featuredImage?.alt}
+                    src={post.featuredImage.url}
+                    alt={post.featuredImage.alt || "Post image"}
                     className="h-12 w-12 rounded object-cover"
                   />
                 ) : (
-                  "-"
-                )}  
+                  <img
+                    src="https://placehold.co/600x400" // <-- put your fixed/default image path here
+                    alt="Default Post"
+                    className="h-12 w-12 rounded object-cover"
+                  />
+                )}
+
               </TableCell>
               <TableCell className="space-x-2">
                 <Button

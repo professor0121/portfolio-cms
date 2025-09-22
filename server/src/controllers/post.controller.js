@@ -84,6 +84,7 @@ export const getAllPosts = async (req, res) => {
 
 export const getPostById = async (req, res) => {
   try {
+    console.log("Fetching post with ID:", req.params.id);
     const { id } = req.params;
 
     if (!id) {
