@@ -17,8 +17,6 @@ export const getPostByIdDao = async (id) => {
     .populate("category")
     .populate("tags")
     .populate("author", "username email")
-    .populate("comments")
-    .populate("review");
 };
 
 export const updatePostByIdDao = async (id, updateData) => {

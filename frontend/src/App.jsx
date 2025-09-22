@@ -17,6 +17,7 @@ import Login from "./admin/login";
 import ProtectedRoute from "./components/ProtectedRoute"; 
 import { Layout } from "./pages/Layout"; 
 import Posts from "./pages/posts";
+import PostDetails from "./pages/postDetails";
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/posts" element={<Posts />} />
+          <Route path="/posts/:id" element={<PostDetails />} />
         </Route>
 
         {/* ✅ Protected Admin Routes */}
