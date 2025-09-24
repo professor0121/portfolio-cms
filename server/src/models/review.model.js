@@ -5,7 +5,7 @@ const reviewSchema = new mongoose.Schema(
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      required: true, // reviewer is required
+      required: true,
     },
     rating: {
       type: Number,
@@ -13,20 +13,29 @@ const reviewSchema = new mongoose.Schema(
       min: 1,
       max: 5,
     },
-    review: {
+    comment: {
       type: String,
       trim: true,
-      default: "",
     },
-    targetType: {
-      type: String,
-      enum: ["Post", "Course", "Note"], 
-      required: true,
-    },
-    targetId: {
+    post: {
       type: mongoose.Schema.Types.ObjectId,
-      required: true, // the ID of the Post/Course/Note
-      refPath: "targetType", // dynamic reference
+      ref: "Post",
+      default: null,
+    },
+    project: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Project",
+      default: null,
+    },
+    course: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Course",
+      default: null,
+    },
+    note: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Note",
+      default: null,
     },
   },
   { timestamps: true }

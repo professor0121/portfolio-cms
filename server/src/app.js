@@ -11,9 +11,10 @@ import adsRouter from './routes/ads.routes.js';
 import projectRouter from './routes/project.routes.js';
 import notesRouter from './routes/notes.routes.js';
 import courseRouter from './routes/course.routes.js';
-import tagRouter from './routes/tag.routes.js';
 import cors from 'cors';
+import tagRouter from './routes/tag.routes.js';
 import commentRouter from './routes/comment.routes.js';
+import reviewRouter from './routes/review.routes.js';
 
 const app = express();
 
@@ -41,6 +42,7 @@ app.use('/projects',projectRouter);
 app.use('/notes',notesRouter);
 app.use('/course',courseRouter);
 app.use('/comments',commentRouter);
+app.use('/reviews', reviewRouter);
 
 
 // Health check route

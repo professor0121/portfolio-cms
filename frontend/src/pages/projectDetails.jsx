@@ -7,7 +7,9 @@ import CreateComment from "../components/CreateComment";
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
 import { Badge } from "../components/ui/badge";
 import { Button } from "../components/ui/button";
-import {fetchComments} from "../redux/slices/commentSlice";
+import { fetchComments } from "../redux/slices/commentSlice";
+import CreateReview from "../components/CreateReview";
+import { fetchReviews } from "../redux/slices/reviewSlice";
 
 const ProjectDetails = () => {
   const dispatch = useDispatch();
@@ -15,10 +17,12 @@ const ProjectDetails = () => {
 
   const { project, loading, error } = useSelector((state) => state.project);
   const { comments } = useSelector((state) => state.comments);
+  const { reviews } = useSelector((state) => state.reviews);
 
   useEffect(() => {
     if (id) dispatch(fetchProjectById(id));
-    dispatch(fetchComments({ type: 'project', typeId: id })); 
+    dispatch(fetchComments({ type: 'project', typeId: id }));
+    dispatch(fetchReviews({ type: 'project', typeId: id }));
   }, [dispatch, id]);
 
   if (loading) return <div className="text-center p-8">Loading project...</div>;
@@ -126,38 +130,39 @@ const ProjectDetails = () => {
       </Card>
 
       {/* Comments */}
-     <Card>
-  <CardHeader>
-    <CardTitle>Comments</CardTitle>
-  </CardHeader>
-  <CardContent>
-    {comments?.length > 0 ? (
-      <div className="space-y-4">
-        {comments.map((comment) => (
-          <div key={comment._id} className="p-3 border rounded-md">
-            <p className="font-medium">{comment.user?.name || "Anonymous"}</p>
-            <p className="text-sm text-muted-foreground">{comment.content}</p>
-            <p className="text-sm text-muted-foreground">
-              {new Date(comment.createdAt).toLocaleString()}
-            </p>
-          </div>
-        ))}
-      </div>
-    ) : (
-      <p className="text-muted-foreground">No comments yet.</p>
-    )}
-  </CardContent>
-</Card>
+      <Card>
+        <CardHeader>
+          <CardTitle>Comments</CardTitle>
+        </CardHeader>
+        <CardContent>
+          {comments?.length > 0 ? (
+            <div className="space-y-4">
+              {comments.map((comment) => (
+                <div key={comment._id} className="p-3 border rounded-md">
+                  <p className="font-medium">{comment.user?.name || "Anonymous"}</p>
+                  <p className="text-sm text-muted-foreground">{comment.content}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {new Date(comment.createdAt).toLocaleString()}
+                  </p>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-muted-foreground">No comments yet.</p>
+          )}
+        </CardContent>
+      </Card>
 
       {/* Reviews */}
+      <CreateReview type="project" typeId={project._id} />
       <Card>
         <CardHeader>
           <CardTitle>Reviews</CardTitle>
         </CardHeader>
         <CardContent>
-          {project.reviews?.length > 0 ? (
+          {reviews?.length > 0 ? (
             <div className="space-y-4">
-              {project.reviews.map((review) => (
+              {reviews.map((review) => (
                 <div key={review._id} className="p-3 border rounded-md">
                   <p className="font-medium">{review.user?.name || "User"}</p>
                   <p className="text-sm text-muted-foreground">{review.comment}</p>

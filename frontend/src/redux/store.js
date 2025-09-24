@@ -7,6 +7,7 @@ import mediaReducer from "./slices/mediaSlice";
 import postReducer from "./slices/postSlice";
 import projectReducer from "./slices/projectSlice";
 import commentReducer from "./slices/commentSlice";
+import reviewReducer from "./slices/reviewSlice";
 
 const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ const store = configureStore({
     post: postReducer,
     project: projectReducer,
     comments: commentReducer,
+    reviews: reviewReducer,
   },
 });
 
