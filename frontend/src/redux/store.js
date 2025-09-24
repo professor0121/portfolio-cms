@@ -8,6 +8,7 @@ import postReducer from "./slices/postSlice";
 import projectReducer from "./slices/projectSlice";
 import commentReducer from "./slices/commentSlice";
 import reviewReducer from "./slices/reviewSlice";
+import adsReducer from "./slices/adSlice";
 
 const store = configureStore({
   reducer: {
@@ -20,6 +21,7 @@ const store = configureStore({
     project: projectReducer,
     comments: commentReducer,
     reviews: reviewReducer,
+    ads: adsReducer,
   },
 });
 

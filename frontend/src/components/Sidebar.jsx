@@ -23,6 +23,7 @@ const menuItems = [
   { name: "Tags", icon: <BookmarkIcon />, path: "/admin/tags" },
   { name: "Media", icon: <ImageIcon />, path: "/admin/media" },
   { name: "Projects", icon: <LayersIcon />, path: "/admin/projects" },
+  { name: "Ads", icon: <LayersIcon />, path: "/admin/ads" },
   { name: "Settings", icon: <GearIcon />, path: "/admin/settings" },
 ];
 

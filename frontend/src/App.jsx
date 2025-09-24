@@ -21,6 +21,7 @@ import PostDetails from "./pages/postDetails";
 import Projects from "./pages/project";
 import ProjectDetails from "./pages/projectDetails";
 import AdminProjects from "./admin/projects";
+import Ads from "./admin/ads";
 
 const App = () => {
   return (
@@ -49,6 +50,7 @@ const App = () => {
             <Route path="tags" element={<Tags />} />
             <Route path="media" element={<Media />} />
             <Route path="projects" element={<AdminProjects />} />
+            <Route path="ads" element={<Ads />} />
           </Route>
         </Route>
 
