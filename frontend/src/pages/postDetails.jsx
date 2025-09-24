@@ -9,6 +9,8 @@ import PageHero from "../components/PageHero";
 import { fetchComments } from "../redux/slices/commentSlice";
 import { CardContent, CardHeader, CardTitle } from "../components/ui/card";
 import CreateComment from "../components/CreateComment";
+import CreateReview from "../components/CreateReview";
+import { fetchReviews } from "../redux/slices/reviewSlice";
 
 const PostDetails = () => {
   const { id } = useParams();
@@ -17,11 +19,13 @@ const PostDetails = () => {
 
   const { post, loading, error } = useSelector((state) => state.post);
   const { comments } = useSelector((state) => state.comments);
+  const { reviews } = useSelector((state) => state.reviews);
 
   useEffect(() => {
     if (id) {
       dispatch(fetchPostById(id));
       dispatch(fetchComments({ type: 'post', typeId: id }));
+      dispatch(fetchReviews({ type: 'post', typeId: id }));
     }
   }, [dispatch, id]);
 
@@ -95,14 +99,14 @@ const PostDetails = () => {
             <p>{post.review?.text || "No review text"}</p>
           </div>
         )}
-      <Card>
-        <CardHeader>
-          <CardTitle>Add a Comment</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <CreateComment type="post" typeId={post._id} />
-        </CardContent>
-      </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>Add a Comment</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <CreateComment type="post" typeId={post._id} />
+          </CardContent>
+        </Card>
         <Card>
           <CardHeader>
             <CardTitle>Comments</CardTitle>
@@ -122,6 +126,40 @@ const PostDetails = () => {
               </div>
             ) : (
               <p className="text-muted-foreground">No comments yet.</p>
+            )}
+          </CardContent>
+        </Card>
+        <Card className="mt-6">
+          <CardHeader>
+            <CardTitle>Write a Review</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <CreateReview type="post" typeId={post._id} />
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Reviews</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {reviews?.length > 0 ? (
+              <div className="space-y-4">
+                {reviews.map((review) => (
+                  <div key={review._id} className="p-3 border rounded-md space-y-1">
+                    <p className="font-medium">{review.user?.name || "Anonymous"}</p>
+                    <p className="text-sm text-muted-foreground">
+                      Rating: {review.rating}⭐
+                    </p>
+                    <p className="text-sm text-muted-foreground">{review.comment}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {new Date(review.createdAt).toLocaleString()}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-muted-foreground">No reviews yet.</p>
             )}
           </CardContent>
         </Card>
