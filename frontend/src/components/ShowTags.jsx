@@ -6,7 +6,7 @@ import {
   TableRow,
   TableHead,
   TableCell,
-} from "@/components/ui/table";
+} from "../components/ui/table";
 import { Button } from "../components/ui/button";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTags, deleteTag } from "../redux/slices/tagSlice";

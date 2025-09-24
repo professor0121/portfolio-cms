@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 // controllers/project.controller.js
 import * as projectService from "../services/project.service.js";
 
@@ -23,16 +24,31 @@ export const getAllProjects = async (req, res) => {
   }
 };
 
+
 export const getProjectById = async (req, res) => {
   try {
-    console.log("Fetching project with ID:", req.params.id);
-    const project = await projectService.getProjectById(req.params.id);
-    if (!project) return res.status(404).json({ message: "Project not found" });
+    const { id } = req.params;
+    console.log("Fetching project with ID:", id);
+
+    // Validate ObjectId before querying
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid project ID" });
+    }
+
+    const project = await projectService.getProjectById(id);
+    console.log("Fetched project:", project);
+
+    if (!project) {
+      return res.status(404).json({ message: "Project not found" });
+    }
+
     res.json(project);
   } catch (error) {
-    res.status(500).json({ message: "Error fetching project", error });
+    console.error("Error in getProjectById:", error.message);
+    res.status(500).json({ message: "Error fetching project" });
   }
 };
+
 
 export const updateProjectById = async (req, res) => {
   try {

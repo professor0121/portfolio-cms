@@ -10,6 +10,7 @@ export const getAllProjects = async () => {
 };
 
 export const getProjectById = async (id) => {
+  console.log("service id:", id);
   return await projectDao.findById(id);
 };
 

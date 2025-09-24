@@ -23,8 +23,9 @@ export const fetchProjectById = createAsyncThunk(
   "project/fetchProjectById",
   async (projectId, { rejectWithValue }) => {
     try {
+      console.log("response", projectId);
       const res = await axiosInstance.get(`/projects/${projectId}`);
-      console.log("response",res.data);
+      console.log("responsedi",res.data);
       return res.data;
     } catch (err) {
       return rejectWithValue(err.response?.data || "Error fetching project");
@@ -135,8 +136,12 @@ const projectSlice = createSlice({
       })
       .addCase(fetchProjectById.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
+        state.error =
+          typeof action.payload === "string"
+            ? action.payload
+            : action.payload?.message || "Error fetching project";
       })
+
 
       // Create project
       .addCase(createProject.pending, (state) => {

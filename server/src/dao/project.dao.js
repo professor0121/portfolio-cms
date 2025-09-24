@@ -13,12 +13,11 @@ export const findAll = async () => {
 };
 
 export const findById = async (id) => {
+  console.log("dao id:", id);
   return await Project.findById(id)
     .populate("author", "name email")
     .populate("category", "name")
     .populate("tags", "name")
-    .populate("comments")
-    .populate("reviews");
 };
 
 export const updateById = async (id, data) => {
