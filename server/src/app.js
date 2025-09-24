@@ -13,6 +13,7 @@ import notesRouter from './routes/notes.routes.js';
 import courseRouter from './routes/course.routes.js';
 import tagRouter from './routes/tag.routes.js';
 import cors from 'cors';
+import commentRouter from './routes/comment.routes.js';
 
 const app = express();
 
@@ -39,6 +40,7 @@ app.use('/ads',adsRouter);
 app.use('/projects',projectRouter);
 app.use('/notes',notesRouter);
 app.use('/course',courseRouter);
+app.use('/comments',commentRouter);
 
 
 // Health check route

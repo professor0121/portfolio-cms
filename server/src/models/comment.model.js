@@ -12,6 +12,26 @@ const commentSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    post: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Post",
+      default: null,
+    },
+    course: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Course", 
+      default: null,
+    },
+    project: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Project", 
+      default: null,
+    },
+    note: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Note", 
+      default: null,
+    },
     parent: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Comment",

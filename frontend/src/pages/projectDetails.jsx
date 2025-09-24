@@ -2,20 +2,23 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, Link } from "react-router-dom";
 import { fetchProjectById } from "../redux/slices/projectSlice";
-
+import CreateComment from "../components/CreateComment";
 // shadcn/ui components
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
 import { Badge } from "../components/ui/badge";
 import { Button } from "../components/ui/button";
+import {fetchComments} from "../redux/slices/commentSlice";
 
 const ProjectDetails = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
 
   const { project, loading, error } = useSelector((state) => state.project);
+  const { comments } = useSelector((state) => state.comments);
 
   useEffect(() => {
     if (id) dispatch(fetchProjectById(id));
+    dispatch(fetchComments({ type: 'project', typeId: id })); 
   }, [dispatch, id]);
 
   if (loading) return <div className="text-center p-8">Loading project...</div>;
@@ -28,7 +31,6 @@ const ProjectDetails = () => {
     );
 
   if (!project) return <div className="text-center p-8">Project not found.</div>;
-
   return (
     <div className="max-w-5xl mx-auto p-6 space-y-6">
       {/* Project Header */}
@@ -114,26 +116,38 @@ const ProjectDetails = () => {
         </Card>
       )}
 
-      {/* Comments */}
       <Card>
         <CardHeader>
-          <CardTitle>Comments</CardTitle>
+          <CardTitle>Add a Comment</CardTitle>
         </CardHeader>
         <CardContent>
-          {project.comments?.length > 0 ? (
-            <div className="space-y-4">
-              {project.comments.map((comment) => (
-                <div key={comment._id} className="p-3 border rounded-md">
-                  <p className="font-medium">{comment.user?.name || "Anonymous"}</p>
-                  <p className="text-sm text-muted-foreground">{comment.text}</p>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <p className="text-muted-foreground">No comments yet.</p>
-          )}
+          <CreateComment type="project" typeId={project._id} />
         </CardContent>
       </Card>
+
+      {/* Comments */}
+     <Card>
+  <CardHeader>
+    <CardTitle>Comments</CardTitle>
+  </CardHeader>
+  <CardContent>
+    {comments?.length > 0 ? (
+      <div className="space-y-4">
+        {comments.map((comment) => (
+          <div key={comment._id} className="p-3 border rounded-md">
+            <p className="font-medium">{comment.user?.name || "Anonymous"}</p>
+            <p className="text-sm text-muted-foreground">{comment.content}</p>
+            <p className="text-sm text-muted-foreground">
+              {new Date(comment.createdAt).toLocaleString()}
+            </p>
+          </div>
+        ))}
+      </div>
+    ) : (
+      <p className="text-muted-foreground">No comments yet.</p>
+    )}
+  </CardContent>
+</Card>
 
       {/* Reviews */}
       <Card>
