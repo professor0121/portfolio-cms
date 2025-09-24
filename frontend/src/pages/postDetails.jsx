@@ -6,6 +6,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchPostById } from "../redux/slices/postSlice";
 import PostGallery from "../components/PostGallery";
 import PageHero from "../components/PageHero";
+import { fetchComments } from "../redux/slices/commentSlice";
+import { CardContent, CardHeader, CardTitle } from "../components/ui/card";
+import CreateComment from "../components/CreateComment";
 
 const PostDetails = () => {
   const { id } = useParams();
@@ -13,10 +16,12 @@ const PostDetails = () => {
   const navigate = useNavigate();
 
   const { post, loading, error } = useSelector((state) => state.post);
+  const { comments } = useSelector((state) => state.comments);
 
   useEffect(() => {
     if (id) {
       dispatch(fetchPostById(id));
+      dispatch(fetchComments({ type: 'post', typeId: id }));
     }
   }, [dispatch, id]);
 
@@ -90,24 +95,37 @@ const PostDetails = () => {
             <p>{post.review?.text || "No review text"}</p>
           </div>
         )}
-
-        {/* Comments */}
-        <div className="mt-8">
-          <h2 className="text-xl font-semibold mb-4">Comments</h2>
-          {post.comments?.length > 0 ? (
-            post.comments.map((c) => (
-              <div
-                key={c._id}
-                className="border-b py-3 flex flex-col gap-1 text-gray-700"
-              >
-                <p className="font-semibold">{c.author?.name || "Anonymous"}</p>
-                <p>{c.text}</p>
+      <Card>
+        <CardHeader>
+          <CardTitle>Add a Comment</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <CreateComment type="post" typeId={post._id} />
+        </CardContent>
+      </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>Comments</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {comments?.length > 0 ? (
+              <div className="space-y-4">
+                {comments.map((comment) => (
+                  <div key={comment._id} className="p-3 border rounded-md">
+                    <p className="font-medium">{comment.user?.name || "Anonymous"}</p>
+                    <p className="text-sm text-muted-foreground">{comment.content}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {new Date(comment.createdAt).toLocaleString()}
+                    </p>
+                  </div>
+                ))}
               </div>
-            ))
-          ) : (
-            <p className="text-gray-500">No comments yet</p>
-          )}
-        </div>
+            ) : (
+              <p className="text-muted-foreground">No comments yet.</p>
+            )}
+          </CardContent>
+        </Card>
+
 
         {/* Go Back Button */}
         <div className="mt-8">
