@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllMedia } from '../redux/slices/mediaSlice'
+import Loader from './Loader'
 
 const ShowMedia = () => {
   const dispatch = useDispatch()
@@ -19,7 +20,7 @@ const ShowMedia = () => {
 
   return (
     <div>
-      {loading && <p>Loading media...</p>}
+      {loading && <p><Loader/></p>}
       {error && <p className="text-red-500">{error}</p>}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-4">

@@ -23,6 +23,7 @@ import ProjectDetails from "./pages/projectDetails";
 import AdminProjects from "./admin/projects";
 import Ads from "./admin/ads";
 import AdminContact from "./admin/contact";
+import PageNotFound from "./pages/pageNotFound";
 
 const App = () => {
   return (
@@ -30,6 +31,7 @@ const App = () => {
       <Routes>
         {/* Public Routes */}
         <Route element={<Layout />}>
+          <Route path="*" element={<PageNotFound />} />
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/about" element={<About />} />

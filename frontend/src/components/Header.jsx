@@ -13,8 +13,8 @@ const headerData = {
   logo: { name: "MyCMS", link: "/" },
   navLinks: [
     { name: "Posts", link: "/posts" },
-    { name: "Categories", link: "/categories" },
-    { name: "Tags", link: "/tags" },
+    { name: "Contact Us", link: "/contact" },
+    { name: "About Us", link: "/about" },
     { name: "Projects", link: "/projects" },
   ],
   userMenu: ["Profile", "Settings", "Logout"],
