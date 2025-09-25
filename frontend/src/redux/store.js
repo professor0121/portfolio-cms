@@ -10,6 +10,7 @@ import commentReducer from "./slices/commentSlice";
 import reviewReducer from "./slices/reviewSlice";
 import adsReducer from "./slices/adSlice";
 import likeReducer from "./slices/likeSlice";
+import contactReducer from "./slices/contactSlice";
 
 const store = configureStore({
   reducer: {
@@ -24,6 +25,7 @@ const store = configureStore({
     reviews: reviewReducer,
     ads: adsReducer,
     likes: likeReducer,
+    contacts: contactReducer,
   },
 });
 

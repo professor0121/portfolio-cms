@@ -1,14 +1,29 @@
 // controllers/contact.controller.js
 import * as contactService from "../services/contact.service.js";
+import { sendEmail } from "../utils/email.utils.js";
+import dotenv from "dotenv";
+dotenv.config();
+    export const createContact = async (req, res) => {
+    try {
+        const contact = await contactService.createContactService(req.body);
+        await sendEmail({
+        to: contact.email,
+        subject: `Thank you for contacting us!`,
+        text: `Hi ${contact.name},\n\nThank you for reaching out. We have received your message and will get back to you soon.`,
+        html: `<p>Hi <strong>${contact.name}</strong>,</p>
+                <p>Thank you for contacting us. We have received your message and will get back to you shortly.</p>
+                <p>Your message:</p>
+                <blockquote>${contact.message}</blockquote>
+                <p>Best regards,<br/>CMS Portfolio</p>`,
+        });
 
-export const createContact = async (req, res) => {
-  try {
-    const contact = await contactService.createContactService(req.body);
-    res.status(201).json({ success: true, data: contact });
-  } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
-  }
-};
+        res.status(201).json({ success: true, data: contact });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: error.message });
+    }
+    };
+
 
 export const getAllContacts = async (req, res) => {
   try {
