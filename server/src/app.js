@@ -15,6 +15,8 @@ import cors from 'cors';
 import tagRouter from './routes/tag.routes.js';
 import commentRouter from './routes/comment.routes.js';
 import reviewRouter from './routes/review.routes.js';
+import likeRouter from './routes/like.routes.js';
+import contactRouter from './routes/contact.routes.js';
 
 const app = express();
 
@@ -43,6 +45,8 @@ app.use('/notes',notesRouter);
 app.use('/course',courseRouter);
 app.use('/comments',commentRouter);
 app.use('/reviews', reviewRouter);
+app.use('/likes', likeRouter);
+app.use('/contact',contactRouter);
 
 
 // Health check route

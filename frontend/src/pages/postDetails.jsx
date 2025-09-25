@@ -4,13 +4,15 @@ import { Card } from "../components/ui/card";
 import { Button } from "../components/ui/button";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchPostById } from "../redux/slices/postSlice";
-import PostGallery from "../components/PostGallery";
 import PageHero from "../components/PageHero";
 import { fetchComments } from "../redux/slices/commentSlice";
 import { CardContent, CardHeader, CardTitle } from "../components/ui/card";
 import CreateComment from "../components/CreateComment";
 import CreateReview from "../components/CreateReview";
 import { fetchReviews } from "../redux/slices/reviewSlice";
+import LikeButton from "../components/Like";
+// import { Loader } from "lucide-react";
+import Loader from "../components/Loader";
 
 const PostDetails = () => {
   const { id } = useParams();
@@ -30,7 +32,7 @@ const PostDetails = () => {
   }, [dispatch, id]);
 
   if (loading) {
-    return <p className="text-center py-10">Loading...</p>;
+    return <p className="text-center py-10"><Loader  /></p>;
   }
 
   if (error) {
@@ -71,8 +73,7 @@ const PostDetails = () => {
           <span>By: {post.author?.name || "Unknown"}</span>
           <span>• Category: {post.category?.name || "Uncategorized"}</span>
           <span>• Published: {new Date(post.createdAt).toLocaleDateString()}</span>
-          <span>• Views: {post.views}</span>
-          <span>• Likes: {post.likes?.length || 0}</span>
+          <LikeButton targetId={post._id} targetModel="Post" />
         </div>
 
         {/* Tags */}

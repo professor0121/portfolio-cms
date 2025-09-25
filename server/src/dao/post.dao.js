@@ -16,6 +16,9 @@ export const getPostByIdDao = async (id) => {
   return await Post.findById(id)
     .populate("category")
     .populate("tags")
+    .populate("comments")
+    .populate("review")
+    .populate("likes")
     .populate("author", "username email")
 };
 
