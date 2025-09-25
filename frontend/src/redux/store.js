@@ -11,6 +11,7 @@ import reviewReducer from "./slices/reviewSlice";
 import adsReducer from "./slices/adSlice";
 import likeReducer from "./slices/likeSlice";
 import contactReducer from "./slices/contactSlice";
+import serverReducer from "./slices/serverSlice";
 
 const store = configureStore({
   reducer: {
@@ -26,6 +27,7 @@ const store = configureStore({
     ads: adsReducer,
     likes: likeReducer,
     contacts: contactReducer,
+    server: serverReducer,
   },
 });
 

@@ -17,6 +17,8 @@ import commentRouter from './routes/comment.routes.js';
 import reviewRouter from './routes/review.routes.js';
 import likeRouter from './routes/like.routes.js';
 import contactRouter from './routes/contact.routes.js';
+import os from "os";
+
 
 const app = express();
 
@@ -59,6 +61,25 @@ app.get("/health", (req, res) => {
     uptime,
     timestamp,
   });
+});
+
+app.get("/server-info", (req, res) => {
+  const serverInfo = {
+    hostname: os.hostname(),
+    platform: os.platform(),
+    architecture: os.arch(),
+    cpu: os.cpus(),
+    cpuCount: os.cpus().length,
+    totalMemory: os.totalmem(),
+    freeMemory: os.freemem(),
+    uptime: os.uptime(), // in seconds
+    nodeVersion: process.version,
+    processId: process.pid,
+    currentDir: process.cwd(),
+    env: process.env.NODE_ENV || "development",
+  };
+
+  res.json({ success: true, serverInfo });
 });
 
 export default app;

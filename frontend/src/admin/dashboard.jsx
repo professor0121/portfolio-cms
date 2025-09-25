@@ -1,24 +1,51 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchHealthStatus } from "../redux/slices/healthSlice";
+import { fetchServerInfo } from "../redux/slices/serverSlice";
 
-const HealthStatus = () => {
+// shadcn/ui components
+import { Card, CardHeader, CardTitle, CardContent } from "../components/ui/card";
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "../components/ui/table";
+
+const ServerInfo = () => {
   const dispatch = useDispatch();
-  const { status, uptime, loading, error } = useSelector((state) => state.health);
+  const { serverInfo, loading, error } = useSelector((state) => state.server);
 
   useEffect(() => {
-    dispatch(fetchHealthStatus());
+    dispatch(fetchServerInfo());
   }, [dispatch]);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p className="text-red-500">{error}</p>;
+  if (loading) return <p className="p-4">Loading server info...</p>;
+  if (error) return <p className="p-4 text-red-500">{error}</p>;
 
   return (
-    <div>
-      <p>Server Status: {status}</p>
-      <p>Uptime: {uptime} seconds</p>
-    </div>
+    <Card className="max-w-4xl mx-auto mt-6">
+      <CardHeader>
+        <CardTitle>Server Information</CardTitle>
+      </CardHeader>
+      <CardContent>
+        {serverInfo ? (
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Key</TableHead>
+                <TableHead>Value</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {Object.entries(serverInfo).map(([key, value]) => (
+                <TableRow key={key}>
+                  <TableCell className="font-medium">{key}</TableCell>
+                  <TableCell>{typeof value === "object" ? JSON.stringify(value, null, 2) : value.toString()}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        ) : (
+          <p>No server information available.</p>
+        )}
+      </CardContent>
+    </Card>
   );
 };
 
-export default HealthStatus;
+export default ServerInfo;
