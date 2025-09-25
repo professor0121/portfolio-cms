@@ -6,6 +6,9 @@ import { fileURLToPath } from 'url'
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
+   build: {
+    chunkSizeWarningLimit: 1000, // increase limit to 1000 kB
+  },
   plugins: [react()],
   resolve: {
     alias: {

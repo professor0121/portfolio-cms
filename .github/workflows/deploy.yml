@@ -1,0 +1,33 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install SSH key
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.VPS_SSH_KEY }}
+
+      - name: Sync code to VPS
+        run: |
+          rsync -avz --delete ./ root@13.60.207.14:/var/www/YOUR_REPO/
+
+      - name: Install dependencies & restart
+        run: |
+          ssh root@13.60.207.14 "
+          cd /var/www/portfolio-cms &&
+          npm install &&
+          cd frontend &&    
+          npm install &&
+          npm run build &&
+          pm2 restart my-app
+          "
