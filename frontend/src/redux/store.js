@@ -9,6 +9,7 @@ import projectReducer from "./slices/projectSlice";
 import commentReducer from "./slices/commentSlice";
 import reviewReducer from "./slices/reviewSlice";
 import adsReducer from "./slices/adSlice";
+import likeReducer from "./slices/likeSlice";
 
 const store = configureStore({
   reducer: {
@@ -22,6 +23,7 @@ const store = configureStore({
     comments: commentReducer,
     reviews: reviewReducer,
     ads: adsReducer,
+    likes: likeReducer,
   },
 });
 

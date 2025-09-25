@@ -10,7 +10,8 @@ import { Button } from "../components/ui/button";
 import { fetchComments } from "../redux/slices/commentSlice";
 import CreateReview from "../components/CreateReview";
 import { fetchReviews } from "../redux/slices/reviewSlice";
-
+import LikeButton from "../components/Like";
+import Loader from "../components/Loader"
 const ProjectDetails = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -25,7 +26,7 @@ const ProjectDetails = () => {
     dispatch(fetchReviews({ type: 'project', typeId: id }));
   }, [dispatch, id]);
 
-  if (loading) return <div className="text-center p-8">Loading project...</div>;
+  if (loading) return <div className="text-center p-8"><Loader /></div>;
 
   if (error)
     return (
@@ -55,6 +56,7 @@ const ProjectDetails = () => {
         </CardContent>
       </Card>
 
+            <LikeButton targetId={project._id} targetModel="Project" />
       {/* Meta Info */}
       <Card>
         <CardHeader>
