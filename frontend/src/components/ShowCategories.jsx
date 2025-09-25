@@ -9,6 +9,16 @@ import {
 } from "../components/ui/table";
 import { Card } from "../components/ui/card";
 import { Button } from "../components/ui/button";
+import {
+    AlertDialog,
+    AlertDialogTrigger,
+    AlertDialogContent,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogDescription,
+    AlertDialogAction,
+    AlertDialogCancel
+} from "../components/ui/alert-dialog"; // make sure this exists
 import { useDispatch, useSelector } from "react-redux";
 import { deleteCategory, fetchCategories } from "../redux/slices/categoriesSlice";
 
@@ -20,10 +30,8 @@ const ShowCategories = () => {
         dispatch(fetchCategories());
     }, [dispatch]);
 
-    const handleDelete = (category) => {
-        if (window.confirm("Are you sure you want to delete this category?")) {
-            dispatch(deleteCategory(category._id));
-        }
+    const handleDelete = (categoryId) => {
+        dispatch(deleteCategory(categoryId));
     };
 
     if (loading) return <p className="p-4">Loading categories...</p>;
@@ -53,12 +61,29 @@ const ShowCategories = () => {
                             </TableCell>
                             <TableCell>{category.description}</TableCell>
                             <TableCell>
-                                <Button onClick={() => handleDelete(category)}>Delete</Button>
+                                <AlertDialog>
+                                    <AlertDialogTrigger asChild>
+                                        <Button variant="destructive">Delete</Button>
+                                    </AlertDialogTrigger>
+                                    <AlertDialogContent>
+                                        <AlertDialogHeader>
+                                            <AlertDialogTitle>Confirm Delete</AlertDialogTitle>
+                                            <AlertDialogDescription>
+                                                Are you sure you want to delete "{category.name}"? This action cannot be undone.
+                                            </AlertDialogDescription>
+                                        </AlertDialogHeader>
+                                        <div className="flex justify-end gap-2 mt-4">
+                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                            <AlertDialogAction onClick={() => handleDelete(category._id)}>
+                                                Delete
+                                            </AlertDialogAction>
+                                        </div>
+                                    </AlertDialogContent>
+                                </AlertDialog>
                             </TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
-
             </Table>
         </Card>
     );

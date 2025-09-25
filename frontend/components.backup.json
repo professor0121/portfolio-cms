@@ -18,5 +18,8 @@
     "lib": "@/lib",
     "hooks": "@/hooks"
   },
-  "registries": {}
+  "registries": {
+    "@radix-ui": "https://registry.npmjs.org/"
+  },
+   "components": [] 
 }

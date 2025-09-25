@@ -64,6 +64,7 @@ export const deleteContact = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       const { data } = await axiosInstance.delete(`/contact/${id}`);
+      console.log(data);
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || "Failed to delete contact");
@@ -168,7 +169,7 @@ const contactSlice = createSlice({
       .addCase(deleteContact.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
-        state.contacts = state.contacts.filter(c => c._id !== action.payload._id);
+        state.contacts = state.contacts.data.filter(c => c._id !== action.payload._id);
         if (state.contact?._id === action.payload._id) state.contact = null;
       })
       .addCase(deleteContact.rejected, (state, action) => {
